@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+
+    <title>QR Themelamp</title>
+    <style>
+        /* 🎨 Colors */
+        :root {
+            --primary-light: #0572E6;
+            --primary-dark: #0023C4;
+            --white: #FFFFFF;
+            --black: #02172E;
+            --gray-1: #9A9A9A;
+            --gray-2: #E4E4E4;
+            --gray-3: #FCFCFC;
+            --container: #FBFDFF;
+            --success: #3CCF79;
+            --success-bg: #D8F5E4;
+            --primary-bg: #CDE3FA;
+        }
+
+        /* Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+
+        body {
+            background-color: #f0f0f0;
+            color: #ffffff;
+            font-family: 'Manrope', sans-serif !important;
+        }
+
+
+        /* Ripple effect material design */
+
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple:after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, #000 10%, transparent 10.01%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10, 10);
+            opacity: 0;
+            transition: transform .5s, opacity 1s
+        }
+
+        .ripple:active:after {
+            transform: scale(0, 0);
+            opacity: .2;
+            transition: 0s
+        }
+
+        .text-primary {
+            color: var(--primary-light) !important;
+        }
+
+        .btn {
+            border-radius: 10px !important;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 13px 0 !important;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-light) !important;
+        }
+
+        .btn-outline-primary {
+            border: 2px solid var(--primary-light) !important;
+        }
+
+
+
+        /* Video */
+
+        video {
+            width: 100% !important;
+            height: auto !important;
+            border-radius: 4%;
+            overflow: hidden;
+        }
+
+        /* Card */
+        .card {
+            border-radius: 19px !important;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.09);
+        }
+
+        /* Camera */
+        .camera {
+            width: 100%;
+        }
+
+        center#powered {
+            display: none !important;
+        }
+
+        /* Header Section */
+
+        header {
+            background-color: #0572E6;
+            color: white;
+        }
+
+        header span {
+            font-weight: 400;
+            font-size: 13px;
+            line-height: 18px;
+            color: #FCFCFC;
+        }
+
+        header h1 {
+            font-weight: 800;
+            font-size: 24px;
+            line-height: 33px;
+        }
+
+        .mt-n5 {
+            margin-top: -2.5rem !important;
+        }
+
+        /* Labels section */
+        section.labels {
+            font-weight: 700;
+            font-size: 15px;
+            line-height: 147%;
+            padding: 20px 0;
+            text-align: center;
+            letter-spacing: 1.5px;
+            color: #CDCDCD;
+        }
+    </style>
+    <!-- BS 5 CSS -->
+    <link rel="stylesheet" href="assets/bs-5/css/bootstrap.min.css">
+    <!-- BS 5 JS -->
+    <script src="assets/bs-5/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="assets/js/llqrcode.js"></script>
+    <script type="text/javascript" src="assets/js/themelamp_webqr.js"></script>
+    <!-- <script async src="https://arc.io/widget.min.js#rDZc6s4f"></script> -->
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="text-center py-4 pb-5">
+                <span id="greetingTime"></span>
+                <h1>Login your account</h1>
+            </div>
+        </div>
+    </header>
+    <center>
+        <div class="container">
+            <div class="card border-0 mt-n5">
+                <div class="card-body">
+                    <div id="main">
+                        <div id="mainbody">
+                            <div class="camera" id="outdiv"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </center>
+    <!-- <div class="mt-5 mb-5 container text-center">
+        <div class="btn btn-primary me-4" id="reload" onclick="location.reload();">Changes Camera</div>
+        <a class="btn btn-outline-primary"
+            href="intent://themelamp.github.io#Intent;scheme=http;package=com.android.chrome;end"> Open in
+            Chrome</a>
+    </div> -->
+
+    <section class="labels">
+        <span>SCAN TO QR CODE</span>
+    </section>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <a href="#" class="btn btn-primary w-100 ripple" id="reload" onclick="location.reload();">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor"
+                        class="w-6 h-6 justify-content-center align-items-center vertical-align-center me-2"
+                        style="width: 24px;">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                    </svg>
+                    Changes camera</a>
+            </div>
+            <div class="col-md-6 mb-5">
+                <a href="intent://themelamp.github.io#Intent;scheme=http;package=com.android.chrome;end"
+                    class="btn btn-outline-primary w-100 ripple">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                        class="w-6 h-6 justify-content-center align-items-center vertical-align-center me-2"
+                        style="width: 24px;">
+                        <path
+                            d="M21.721 12.752a9.711 9.711 0 00-.945-5.003 12.754 12.754 0 01-4.339 2.708 18.991 18.991 0 01-.214 4.772 17.165 17.165 0 005.498-2.477zM14.634 15.55a17.324 17.324 0 00.332-4.647c-.952.227-1.945.347-2.966.347-1.021 0-2.014-.12-2.966-.347a17.515 17.515 0 00.332 4.647 17.385 17.385 0 005.268 0zM9.772 17.119a18.963 18.963 0 004.456 0A17.182 17.182 0 0112 21.724a17.18 17.18 0 01-2.228-4.605zM7.777 15.23a18.87 18.87 0 01-.214-4.774 12.753 12.753 0 01-4.34-2.708 9.711 9.711 0 00-.944 5.004 17.165 17.165 0 005.498 2.477zM21.356 14.752a9.765 9.765 0 01-7.478 6.817 18.64 18.64 0 001.988-4.718 18.627 18.627 0 005.49-2.098zM2.644 14.752c1.682.971 3.53 1.688 5.49 2.099a18.64 18.64 0 001.988 4.718 9.765 9.765 0 01-7.478-6.816zM13.878 2.43a9.755 9.755 0 016.116 3.986 11.267 11.267 0 01-3.746 2.504 18.63 18.63 0 00-2.37-6.49zM12 2.276a17.152 17.152 0 012.805 7.121c-.897.23-1.837.353-2.805.353-.968 0-1.908-.122-2.805-.353A17.151 17.151 0 0112 2.276zM10.122 2.43a18.629 18.629 0 00-2.37 6.49 11.266 11.266 0 01-3.746-2.504 9.754 9.754 0 016.116-3.985z" />
+                    </svg>
+                    Open in Chrome</a>
+            </div>
+        </div>
+    </div>
+    <canvas style="display:none;" id="qr-canvas" width="800" height="600"></canvas>
+    <script type="text/javascript">load();</script>
+
+    <script>
+        // greetings scripts
+        const time = new Date().getHours();
+        let greeting;
+
+        if (time < 10) {
+            greeting = "Good Moorning";
+        } else if (time < 20) {
+            greeting = "Good Afternoon"
+        } else {
+            greeting = "Good Evening"
+        }
+
+        document.getElementById("greetingTime").innerHTML = greeting;
+    </script>
+</body>
+
+</html>
